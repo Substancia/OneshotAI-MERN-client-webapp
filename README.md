@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# OneshotAI-MERN-client-webapp
+MERN client (webapp) for OneshotAI placement test assignment
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
