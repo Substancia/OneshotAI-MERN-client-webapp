@@ -1,22 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { RecordList, DashboardColleges, DashboardStudents } from './containers';
 
-function App() {
+const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
+const PORT = process.env.REACT_APP_PORT || '8080';
+
+const App = () => {
+  const [selectedRecord, setSelectedRecord] = useState({});
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    axios.post(`http://${ADDRESS}:${PORT}/record`,
+      selectedRecord
+    ).then(res => setRecords(res.data));
+  }, [selectedRecord]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {
+          selectedRecord.college == null ?
+            <DashboardColleges
+              setRecords={setRecords}
+              setSelectedRecord={setSelectedRecord}
+            /> :
+            <DashboardStudents />
+        }
+        <RecordList
+          selectedRecord={selectedRecord}
+          setSelectedRecord={setSelectedRecord}
+          records={records}
+        />
       </header>
     </div>
   );
