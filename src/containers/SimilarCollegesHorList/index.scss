@@ -1,0 +1,10 @@
+.SimilarCollegesHorList {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+
+  .SimilarCollegesCard {
+    border: 1px solid lightgray;
+  }
+}

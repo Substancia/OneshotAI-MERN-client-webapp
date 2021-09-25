@@ -1,5 +1,9 @@
+@import '../index.scss';
+
 .collection {
   width: 100%;
+  height: calc(100vh - $DashboardHeight - $SimilarCollegesScrollHeight);
+  overflow-y: scroll;
 
   .collection-header {
     font-weight: 600;

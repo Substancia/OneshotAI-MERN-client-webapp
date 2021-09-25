@@ -21,7 +21,7 @@ const DashboardColleges = props => {
     const selection = chartWrapper.getChart().getSelection();
     if(selection.length === 1) {
       const value = chartWrapper.getDataTable().getValue(selection[0].row, 0);
-      props.setSelectedRecord({ query: { state: value } });
+      props.setSelectedRecordQuery({ query: { state: value } });
     }
   }
 
