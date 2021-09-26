@@ -3,7 +3,7 @@ import './index.scss';
 
 const RecordList = props => {
   const listRecords = props.records.map((record, index) =>
-    <li className='collection-item' key={index}
+    <li className='collection-item clickable' key={index}
       onClick={() => {
         if(!('college' in props.selectedRecordQuery))
           props.setSelectedRecordQuery({ college: record.name })
@@ -18,7 +18,7 @@ const RecordList = props => {
   );
 
   return (
-    <div>
+    <div className='RecordList'>
       <ul className='collection with-header'>
         <li className='collection-header'>
           <span className='col1'>S. No.</span>

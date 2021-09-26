@@ -1,7 +1,31 @@
 @import '../index.scss';
 
 .Dashboard-Colleges {
-  height: $DashboardHeight;
+  // width: 100%;
+  // height: $DashboardHeight;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.14);
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+
+  .TableInfo {
+    flex: 1;
+  }
+  
+  .Charts-Container {
+    flex: 2;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    object-fit: contain;
+  }
+
+  .TableInfo {
+    padding: 5px 10px 15px 10px;
+  }
 }

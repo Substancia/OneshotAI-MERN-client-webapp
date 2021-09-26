@@ -1,0 +1,47 @@
+nav {
+  height: unset;
+  background-color: #0f1e2d;
+}
+
+.Navbar {
+  padding: 10px 20px;
+  height: auto;
+  background-color: #0f1e2d;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  button {
+    margin: 3px;
+    background-color: #1e78f0;
+  }
+
+  i {
+    height: auto !important;
+    line-height: normal !important;
+  }
+
+  .SearchGroup {
+    form {
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    
+        label {
+          position: relative;
+          transform: translateY(0);
+          cursor: default;
+        }
+
+        input {
+          margin: 0 2px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

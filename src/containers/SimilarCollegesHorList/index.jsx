@@ -20,9 +20,11 @@ const SimilarCollegesHorList = props => {
     if(data.length > 0)
       return (
         data.map((college, index) =>
-          <div key={index} className='SimilarCollegesCard' onClick={() => props.setSelectedRecordQuery({ college: college.name })}>
-            <h6>{college.name}</h6>
-            <p>{college._id}</p>
+          <div className='card SimilarCollegesCard clickable'>
+            <div key={index} className='card-content' onClick={() => props.setSelectedRecordQuery({ college: college.name })}>
+              <h6>{college.name}</h6>
+              <p>{college._id}</p>
+            </div>
           </div>
         )
       );

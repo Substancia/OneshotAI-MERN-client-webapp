@@ -47,27 +47,33 @@ const DashboardColleges = props => {
 
   return (
     <div className='Dashboard-Colleges'>
-      <div>Colleges indexed: {props.collegeCount}</div>
-      <Chart
-        width={'500px'} height={'180px'}
-        chartType='PieChart' loader={<div>Loading Chart...</div>}
-        data={byState}
-        chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromStatesChart(chartWrapper) }]}
-        options={{ title: 'Colleges By State', pieHole: 0.4 }}
-        rootProps={{ 'data-testid': '1' }}
-      />
-      <Chart
-        width={'500px'} height={'180px'}
-        chartType='BarChart' loader={<div>Loading Chart...</div>}
-        data={byCourses}
-        chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromCoursesChart(chartWrapper) }]}
-        options={{
-          title: 'Colleges By Courses Offered',
-          chartArea: { width: '50%' },
-          hAxis: { title: 'Number of colleges' }
-        }}
-        rootProps={{ 'data-testid': '2' }}
-      />
+      <div className='TableInfo'>
+        <h5>Table Information</h5>
+        <p>Colleges indexed: {props.collegeCount}</p>
+      </div>
+      <div className='Charts-Container'>
+        <Chart
+          width={'330px'} height={'180px'}
+          chartType='PieChart' loader={<div>Loading Chart...</div>}
+          data={byState}
+          chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromStatesChart(chartWrapper) }]}
+          options={{ title: 'Colleges By State', pieHole: 0.4 }}
+          rootProps={{ 'data-testid': '1' }}
+        />
+        <Chart
+          width={'345px'} height={'180px'}
+          chartType='BarChart' loader={<div>Loading Chart...</div>}
+          data={byCourses}
+          chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromCoursesChart(chartWrapper) }]}
+          options={{
+            title: 'Colleges By Courses Offered',
+            chartArea: { width: '50%' },
+            hAxis: { title: 'Number of colleges' },
+            legend: 'none'
+          }}
+          rootProps={{ 'data-testid': '2' }}
+        />
+      </div>
     </div>
   );
 };

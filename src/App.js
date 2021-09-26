@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { RecordList, DashboardColleges, DashboardStudents, SimilarCollegesHorList } from './containers';
 import Navbar from './components/Navbar';
+import './App.scss';
 
 const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
 const PORT = process.env.REACT_APP_PORT || '8080';
