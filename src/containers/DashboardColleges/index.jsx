@@ -47,6 +47,7 @@ const DashboardColleges = props => {
 
   return (
     <div className='Dashboard-Colleges'>
+      <div>Colleges indexed: {props.collegeCount}</div>
       <Chart
         width={'500px'} height={'180px'}
         chartType='PieChart' loader={<div>Loading Chart...</div>}

@@ -10,12 +10,16 @@ const App = () => {
   const [selectedRecordQuery, setSelectedRecordQuery] = useState({});
   const [selectedRecord, setSelectedRecord] = useState({});
   const [records, setRecords] = useState([]);
+  const [collegeCount, setCollegeCount] = useState(0);
   // const [queryHistory, setQueryHistory] = useState([]);
 
   useEffect(() => {
     axios.post(`http://${ADDRESS}:${PORT}/record`,
       selectedRecordQuery
     ).then(res => setRecords(res.data));
+
+    axios.post(`http://${ADDRESS}:${PORT}/record/getNumberOfColleges`)
+      .then(res => setCollegeCount(res.data.count));
 
     var obj = {};
     if('student' in selectedRecordQuery) obj.collection = 'student';
@@ -42,6 +46,7 @@ const App = () => {
               record={selectedRecord}
             /> :
             <DashboardColleges
+              collegeCount={collegeCount}
               setRecords={setRecords}
               setSelectedRecordQuery={setSelectedRecordQuery}
             />
