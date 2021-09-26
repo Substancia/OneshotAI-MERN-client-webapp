@@ -7,6 +7,7 @@ of cards (to display similar colleges only when drilled down to a college).
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { RecordList, DashboardMain, DashboardDetails, SimilarCollegesHorList } from './containers';
+import { Preloader } from './components';
 import Navbar from './components/Navbar';
 import './App.scss';
 
@@ -21,33 +22,44 @@ const App = () => {
   const [records, setRecords] = useState([]);               // for all records returned by server
   const [collegeCount, setCollegeCount] = useState(0);      // for total number of colleges in DB
 
+  const [isLoading, setLoading] = useState(true);
+  
   useEffect(() => {
-    // to collect records from server based on query passed
-    axios.post(`${ADDRESS}:${PORT}/record`,
-      selectedRecordQuery
-    ).then(res => setRecords(res.data));
+    setLoading(true);
+    const fetchData = async () => {
+      // to collect records from server based on query passed
+      await axios.post(`${ADDRESS}:${PORT}/record`,
+        selectedRecordQuery
+      ).then(res => setRecords(res.data));
 
-    // to get total number of colleges in DB
-    axios.post(`${ADDRESS}:${PORT}/record/getNumberOfColleges`)
-      .then(res => setCollegeCount(res.data.count));
+      // to get total number of colleges in DB
+      await axios.post(`${ADDRESS}:${PORT}/record/getNumberOfColleges`)
+        .then(res => setCollegeCount(res.data.count));
 
-    // to collect and serve details on selected college/student
-    var obj = {};
-    if('student' in selectedRecordQuery) obj.collection = 'student';
-    else if('college' in selectedRecordQuery) obj.collection = 'college';
-    // if a college or student is selected from list, send name field for DB query
-    if('collection' in obj) {
-      obj.query = { name: selectedRecordQuery[obj.collection] };
-      axios.post(`${ADDRESS}:${PORT}/record/details`, obj)
-        .then(res => setSelectedRecord(res.data));
+      // to collect and serve details on selected college/student
+      var obj = {};
+      if('student' in selectedRecordQuery) obj.collection = 'student';
+      else if('college' in selectedRecordQuery) obj.collection = 'college';
+      // if a college or student is selected from list, send name field for DB query
+      if('collection' in obj) {
+        obj.query = { name: selectedRecordQuery[obj.collection] };
+        await axios.post(`${ADDRESS}:${PORT}/record/details`, obj)
+          .then(res => setSelectedRecord(res.data));
+      }
+      setLoading(false);
     }
+    fetchData();
   }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query
 
   return (
     <div className="App">
+      {
+        isLoading ? <Preloader /> : null
+      }
       <header className="App-header">
         {/* Navbar element, contains search field and necessary buttons in different stages */}
         <Navbar
+          isLoading={isLoading}
           selectedRecordQuery={selectedRecordQuery}
           setSelectedRecordQuery={setSelectedRecordQuery}
         />

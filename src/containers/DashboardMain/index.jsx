@@ -9,6 +9,7 @@ categorisation is received from server as object and converted to list.
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Chart from 'react-google-charts';
+import { Preloader } from '../../components';
 import './index.scss';
 
 // collecting backend address and port
@@ -78,7 +79,7 @@ const DashboardMain = props => {
         {/* loading piechart with state-wise data */}
         <Chart
           width={'330px'} height={'180px'}
-          chartType='PieChart' loader={<div>Loading Chart...</div>}
+          chartType='PieChart' loader={<Preloader />}
           data={byState}
           chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromStatesChart(chartWrapper) }]}
           options={{ title: 'Colleges By State', pieHole: 0.4 }}
@@ -88,7 +89,7 @@ const DashboardMain = props => {
         {/* loading barchart with course-wise data */}
         <Chart
           width={'345px'} height={'180px'}
-          chartType='BarChart' loader={<div>Loading Chart...</div>}
+          chartType='BarChart' loader={<Preloader />}
           data={byCourses}
           chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromCoursesChart(chartWrapper) }]}
           options={{

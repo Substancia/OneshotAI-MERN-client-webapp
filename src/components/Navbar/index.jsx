@@ -23,6 +23,7 @@ const Navbar = props => {
           {/* Button to take us back to main screen */}
           <button className='waves-effect waves-light btn'
             onClick={() => props.setSelectedRecordQuery({})}
+            disabled={props.isLoading ? true : false}
           >
             List Colleges
           </button>
@@ -34,6 +35,7 @@ const Navbar = props => {
             ('student' in props.selectedRecordQuery) ?
               <button className='waves-effect waves-light btn'
                 onClick={() => props.setSelectedRecordQuery({ college: props.selectedRecordQuery.college })}
+                disabled={props.isLoading ? true : false}
               >
                 College details
               </button> :
@@ -52,6 +54,7 @@ const Navbar = props => {
               />
               <button className='waves-effect waves-light btn'
                 onClick={handleSearchSubmit}
+                disabled={props.isLoading ? true : false}
               >
                 <i class="material-icons right">send</i>
               </button>
