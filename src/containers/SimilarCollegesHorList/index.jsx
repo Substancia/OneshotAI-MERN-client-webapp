@@ -8,11 +8,13 @@ const PORT = process.env.REACT_APP_PORT || '8080';
 const SimilarCollegesHorList = props => {
   const [similar, setSimilar] = useState([]);
 
-  useEffect(() =>
-    axios.post(`http://${ADDRESS}:${PORT}/record/getSimilarColleges`,
-      props.collegeName
-    ).then(res => setSimilar(res.data.similar))
-  , [props.collegeName]);
+  useEffect(() => {
+    if('college' in props.collegeName) {
+      axios.post(`http://${ADDRESS}:${PORT}/record/getSimilarColleges`,
+        props.collegeName
+      ).then(res => setSimilar(res.data.similar))
+    }
+  }, [props.collegeName]);
 
   const similarCards = data => {
     if(data.length > 0)
