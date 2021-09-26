@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import './index.scss';
 
+// Initializing Navbar component
 const Navbar = props => {
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState('');   // to store search key (name/ID)
 
-  const handleSearchKey = e => setSearchKey(e.target.value);
-  const handleSearchKeyEnter = e => {
+  const handleSearchKey = e => setSearchKey(e.target.value);  // handle search field value update
+  const handleSearchKeyEnter = e => {               // for the Enter-key to submit search
     if(e.charCode === 13) handleSearchSubmit();
   }
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = () => {                // search key is sent to server for matching
     if(searchKey.length) {
       props.setSelectedRecordQuery({ type: 'searchKey', query: { name: searchKey } });
       setSearchKey('');
@@ -19,19 +20,16 @@ const Navbar = props => {
     <nav>
       <div className='nav-wrapper Navbar'>
         <div className='ButtonGroup left'>
+          {/* Button to take us back to main screen */}
           <button className='waves-effect waves-light btn'
             onClick={() => props.setSelectedRecordQuery({})}
           >
-            Show Colleges
+            List Colleges
           </button>
-          {/* <button
-            onClick={() => {
-              if(props.queryHistory.length > 0)
-                props.setQueryHistory(props.queryHistory.slice(0, -1))}
-            }
-          >
-            Back
-          </button> */}
+
+          {/* Conditionally render button to display college details,
+              only if student details are being displayed.
+              Both details use and recycle same DashboardDetails component. */}
           {
             ('student' in props.selectedRecordQuery) ?
               <button className='waves-effect waves-light btn'
@@ -42,12 +40,14 @@ const Navbar = props => {
               null
           }
         </div>
+
+        {/* Search field and associated elements */}
         <div className='SearchGroup right'>
-          <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={e => e.preventDefault()}>   {/* to prevent form from redirecting */}
             <div className='input-field'>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
               <input
-                type='text' value={searchKey} placeholder='Search by name'
+                type='text' value={searchKey} placeholder='Search by name or ID'
                 onChange={handleSearchKey} onKeyPress={handleSearchKeyEnter}
               />
               <button className='waves-effect waves-light btn'

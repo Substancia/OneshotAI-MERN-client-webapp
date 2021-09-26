@@ -1,5 +1,4 @@
 .SimilarCollegesHorList {
-  // width: 100%;
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
@@ -7,6 +6,5 @@
   .SimilarCollegesCard {
       margin: 5px;
       border-radius: 5px;
-      // border: 1px solid lightgray;
   }
 }

@@ -1,64 +1,80 @@
+/*
+App structure: Navbar, a dashboard (to show charts or details),
+a list display (recycled to print any given set of records), a horizontal list display
+of cards (to display similar colleges only when drilled down to a college).
+*/
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { RecordList, DashboardColleges, DashboardStudents, SimilarCollegesHorList } from './containers';
+import { RecordList, DashboardMain, DashboardDetails, SimilarCollegesHorList } from './containers';
 import Navbar from './components/Navbar';
 import './App.scss';
 
+// collecting backend address and port
 const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
 const PORT = process.env.REACT_APP_PORT || '8080';
 
+// initializing app
 const App = () => {
-  const [selectedRecordQuery, setSelectedRecordQuery] = useState({});
-  const [selectedRecord, setSelectedRecord] = useState({});
-  const [records, setRecords] = useState([]);
-  const [collegeCount, setCollegeCount] = useState(0);
-  // const [queryHistory, setQueryHistory] = useState([]);
+  const [selectedRecordQuery, setSelectedRecordQuery] = useState({}); // for current query parameters to server
+  const [selectedRecord, setSelectedRecord] = useState({}); // for current selected record
+  const [records, setRecords] = useState([]);               // for all records returned by server
+  const [collegeCount, setCollegeCount] = useState(0);      // for total number of colleges in DB
 
   useEffect(() => {
+    // to collect records from server based on query passed
     axios.post(`http://${ADDRESS}:${PORT}/record`,
       selectedRecordQuery
     ).then(res => setRecords(res.data));
 
+    // to get total number of colleges in DB
     axios.post(`http://${ADDRESS}:${PORT}/record/getNumberOfColleges`)
       .then(res => setCollegeCount(res.data.count));
 
+    // to collect and serve details on selected college/student
     var obj = {};
     if('student' in selectedRecordQuery) obj.collection = 'student';
     else if('college' in selectedRecordQuery) obj.collection = 'college';
+    // if a college or student is selected from list, send name field for DB query
     if('collection' in obj) {
       obj.query = { name: selectedRecordQuery[obj.collection] };
       axios.post(`http://${ADDRESS}:${PORT}/record/details`, obj)
         .then(res => setSelectedRecord(res.data));
     }
-    // if(queryHistory.length)
-    //   setQueryHistory(...queryHistory, selectedRecordQuery);
-  }, [selectedRecordQuery]);
+  }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query
 
   return (
     <div className="App">
       <header className="App-header">
+        {/* Navbar element, contains search field and necessary buttons in different stages */}
         <Navbar
           selectedRecordQuery={selectedRecordQuery}
           setSelectedRecordQuery={setSelectedRecordQuery}
         />
+
+        {/* Conditionally render DashboardMain if in main screen, or DashboardDetails
+            to display college/student details */}
         {
           ('college' in selectedRecordQuery || 'student' in selectedRecordQuery) ?
-            <DashboardStudents
+            <DashboardDetails
               record={selectedRecord}
             /> :
-            <DashboardColleges
+            <DashboardMain
               collegeCount={collegeCount}
               setRecords={setRecords}
               setSelectedRecordQuery={setSelectedRecordQuery}
             />
         }
+
+        {/* List component used for listing all types of records.
+            Same component is recycled and populated with colleges/students list accordingly. */}
         <RecordList
           selectedRecordQuery={selectedRecordQuery}
           setSelectedRecordQuery={setSelectedRecordQuery}
           records={records}
-          // queryHistory={queryHistory}
-          // setQueryHistory={setQueryHistory}
         />
+
+        {/* Conditionally render list of similar colleges only when a college is clicked */}
         {
           ('college' in selectedRecordQuery && records.length > 0) ?
             <SimilarCollegesHorList
