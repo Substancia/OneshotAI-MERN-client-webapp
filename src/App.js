@@ -11,8 +11,8 @@ import Navbar from './components/Navbar';
 import './App.scss';
 
 // collecting backend address and port
-const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
-const PORT = process.env.REACT_APP_PORT || '8080';
+const ADDRESS = process.env.REACT_APP_ADDRESS;
+const PORT = process.env.REACT_APP_PORT;
 
 // initializing app
 const App = () => {
@@ -23,12 +23,12 @@ const App = () => {
 
   useEffect(() => {
     // to collect records from server based on query passed
-    axios.post(`http://${ADDRESS}:${PORT}/record`,
+    axios.post(`${ADDRESS}:${PORT}/record`,
       selectedRecordQuery
     ).then(res => setRecords(res.data));
 
     // to get total number of colleges in DB
-    axios.post(`http://${ADDRESS}:${PORT}/record/getNumberOfColleges`)
+    axios.post(`${ADDRESS}:${PORT}/record/getNumberOfColleges`)
       .then(res => setCollegeCount(res.data.count));
 
     // to collect and serve details on selected college/student
@@ -38,7 +38,7 @@ const App = () => {
     // if a college or student is selected from list, send name field for DB query
     if('collection' in obj) {
       obj.query = { name: selectedRecordQuery[obj.collection] };
-      axios.post(`http://${ADDRESS}:${PORT}/record/details`, obj)
+      axios.post(`${ADDRESS}:${PORT}/record/details`, obj)
         .then(res => setSelectedRecord(res.data));
     }
   }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query

@@ -12,8 +12,8 @@ import Chart from 'react-google-charts';
 import './index.scss';
 
 // collecting backend address and port
-const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
-const PORT = process.env.REACT_APP_PORT || '8080';
+const ADDRESS = process.env.REACT_APP_ADDRESS;
+const PORT = process.env.REACT_APP_PORT;
 
 // initializing DashboardMain component, for main screen charts
 const DashboardMain = props => {
@@ -22,11 +22,11 @@ const DashboardMain = props => {
 
   useEffect(() => {
     // collecting list of all colleges
-    axios.post(`http://${ADDRESS}:${PORT}/record`)
+    axios.post(`${ADDRESS}:${PORT}/record`)
       .then(res => setCollegeList(res.data));
     
     // collecting college categories (based on courses offered) data from server
-    axios.post(`http://${ADDRESS}:${PORT}/record/catByCourses`)
+    axios.post(`${ADDRESS}:${PORT}/record/catByCourses`)
       .then(res => setCourses(res.data));
   }, []);     // empty dependency list to refresh only once per loading
 
