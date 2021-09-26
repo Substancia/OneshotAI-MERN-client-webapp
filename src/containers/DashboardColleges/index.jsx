@@ -52,15 +52,19 @@ const DashboardColleges = props => {
         chartType='PieChart' loader={<div>Loading Chart...</div>}
         data={byState}
         chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromStatesChart(chartWrapper) }]}
-        options={{ title: 'By State', pieHole: 0.4 }}
+        options={{ title: 'Colleges By State', pieHole: 0.4 }}
         rootProps={{ 'data-testid': '1' }}
       />
       <Chart
         width={'500px'} height={'180px'}
-        chartType='Bar' loader={<div>Loading Chart...</div>}
+        chartType='BarChart' loader={<div>Loading Chart...</div>}
         data={byCourses}
         chartEvents={[{ eventName: 'select', callback: ({ chartWrapper }) => getCollegeFromCoursesChart(chartWrapper) }]}
-        options={{ title: 'By Courses' }}
+        options={{
+          title: 'Colleges By Courses Offered',
+          chartArea: { width: '50%' },
+          hAxis: { title: 'Number of colleges' }
+        }}
         rootProps={{ 'data-testid': '2' }}
       />
     </div>

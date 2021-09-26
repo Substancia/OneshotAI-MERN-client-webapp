@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { RecordList, DashboardColleges, DashboardStudents, SimilarCollegesHorList } from './containers';
+import Navbar from './components/Navbar';
 
 const ADDRESS = process.env.REACT_APP_ADDRESS || 'localhost';
 const PORT = process.env.REACT_APP_PORT || '8080';
@@ -31,6 +32,10 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <Navbar
+          selectedRecordQuery={selectedRecordQuery}
+          setSelectedRecordQuery={setSelectedRecordQuery}
+        />
         {
           ('college' in selectedRecordQuery || 'student' in selectedRecordQuery) ?
             <DashboardStudents
