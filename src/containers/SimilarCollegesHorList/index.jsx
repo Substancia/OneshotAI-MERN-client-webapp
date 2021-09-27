@@ -41,7 +41,7 @@ const SimilarCollegesHorList = props => {
       );
     // if similar colleges list is empty
     return (
-      <div>Looks like there aren't many similar colleges in this region...</div>
+      <div className='no-similar'>Looks like there aren't many similar colleges in this region...</div>
     );
   }
 
