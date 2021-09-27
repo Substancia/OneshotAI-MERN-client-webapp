@@ -23,11 +23,11 @@ const DashboardMain = props => {
 
   useEffect(() => {
     // collecting list of all colleges
-    axios.post(`${ADDRESS}:${PORT}/record`)
+    axios.post(`https://vast-cove-11760.herokuapp.com/record`)
       .then(res => setCollegeList(res.data));
     
     // collecting college categories (based on courses offered) data from server
-    axios.post(`${ADDRESS}:${PORT}/record/catByCourses`)
+    axios.post(`https://vast-cove-11760.herokuapp.com/record/catByCourses`)
       .then(res => setCourses(res.data));
   }, []);     // empty dependency list to refresh only once per loading
 

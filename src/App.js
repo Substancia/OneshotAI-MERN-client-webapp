@@ -28,12 +28,12 @@ const App = () => {
     setLoading(true);
     const fetchData = async () => {
       // to collect records from server based on query passed
-      await axios.post(`${ADDRESS}:${PORT}/record`,
+      await axios.post(`https://vast-cove-11760.herokuapp.com/record`,
         selectedRecordQuery
       ).then(res => setRecords(res.data));
 
       // to get total number of colleges in DB
-      await axios.post(`${ADDRESS}:${PORT}/record/getNumberOfColleges`)
+      await axios.post(`https://vast-cove-11760.herokuapp.com/record/getNumberOfColleges`)
         .then(res => setCollegeCount(res.data.count));
 
       // to collect and serve details on selected college/student
@@ -43,7 +43,7 @@ const App = () => {
       // if a college or student is selected from list, send name field for DB query
       if('collection' in obj) {
         obj.query = { name: selectedRecordQuery[obj.collection] };
-        await axios.post(`${ADDRESS}:${PORT}/record/details`, obj)
+        await axios.post(`https://vast-cove-11760.herokuapp.com/record/details`, obj)
           .then(res => setSelectedRecord(res.data));
       }
       setLoading(false);
@@ -51,8 +51,8 @@ const App = () => {
     fetchData();
   }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query
 
-  console.log(`Debug: ${ADDRESS}:${PORT}/record`);
-  
+  console.log(`Debug: https://vast-cove-11760.herokuapp.com/record`);
+
   return (
     <div className="App">
       {
