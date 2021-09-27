@@ -20,7 +20,7 @@ const SimilarCollegesHorList = props => {
   // collecting similar colleges list from server
   useEffect(() => {
     if('college' in props.collegeName) {
-      axios.post(`https://vast-cove-11760.herokuapp.com/record/getSimilarColleges`,
+      axios.post(`${ADDRESS}:${PORT}/record/getSimilarColleges`,
         props.collegeName
       ).then(res => setSimilar(res.data.similar))
     }
