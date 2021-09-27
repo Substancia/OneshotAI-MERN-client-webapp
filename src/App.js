@@ -11,6 +11,7 @@ import { RecordList, DashboardMain, DashboardDetails, SimilarCollegesHorList } f
 import { Preloader } from './components';
 import Navbar from './components/Navbar';
 import './App.scss';
+import InstructionsModal from './modals/InstructionsModal';
 
 // collecting backend address and port
 const ADDRESS = process.env.REACT_APP_ADDRESS;
@@ -23,6 +24,7 @@ const App = () => {
   const [records, setRecords] = useState([]);               // for all records returned by server
   const [collegeCount, setCollegeCount] = useState(0);      // for total number of colleges in DB
   const [isLoading, setLoading] = useState(true);           // loading state for preloader
+  const [modalVisible, setModalVisible] = useState(true);   // loading instructions modal for testing
   
   useEffect(() => {
     // started loading data from server
@@ -60,12 +62,21 @@ const App = () => {
       {
         isLoading ? <Preloader fullscreen /> : null
       }
+
+      {/* Misc: Display an instructions Modal for testing team once App is loaded */}
+      {
+        modalVisible && !isLoading ? 
+          <InstructionsModal closeModal={() => setModalVisible(false)} /> :
+          null
+      }
+
       <header className="App-header">
         {/* Navbar element, contains search field and necessary buttons in different stages */}
         <Navbar
           isLoading={isLoading}
           selectedRecordQuery={selectedRecordQuery}
           setSelectedRecordQuery={setSelectedRecordQuery}
+          openModal={() => setModalVisible(true)}
         />
 
         {/* Conditionally render DashboardMain if in main screen, or DashboardDetails
@@ -74,6 +85,7 @@ const App = () => {
           ('college' in selectedRecordQuery || 'student' in selectedRecordQuery) ?
             <DashboardDetails
               record={selectedRecord}
+              recordType={selectedRecordQuery}
             /> :
             <DashboardMain
               collegeCount={collegeCount}

@@ -1,0 +1,50 @@
+.InstructionsModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .Modal-bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: gray;
+    opacity: 0.5;
+  }
+
+  .Modal-box {
+    min-width: 50%;
+    z-index: 3;
+
+    .Modal-header {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px 4px 0 0;
+      color: white;
+      background-color: #0f1e2d;
+    }
+
+    .Modal-content {
+      padding: 2% 5%;
+      border-radius: 0 0 4px 4px;
+      background-color: white;
+      
+      ul.ID-list {
+        list-style-type: circle;
+
+        li {
+          list-style-type: unset;
+        }
+      }
+
+      .Modal-close-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  }
+}

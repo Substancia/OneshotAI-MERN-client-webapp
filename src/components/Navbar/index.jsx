@@ -41,6 +41,18 @@ const Navbar = props => {
               </button> :
               null
           }
+
+          {/* Misc: button to open instructions modal for testing team */}
+          {
+            ('student' in props.selectedRecordQuery || 'college' in props.selectedRecordQuery) ?
+              null :
+              <button className='waves-effect waves-light btn'
+                onClick={props.openModal}
+                disabled={props.isLoading ? true : false}
+              >
+                <i className="material-icons">info_outline</i>
+              </button>
+          }
         </div>
 
         {/* Search field and associated elements */}
@@ -49,7 +61,7 @@ const Navbar = props => {
             <div className='input-field'>
               <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
               <input
-                type='text' value={searchKey} placeholder='Search by name or ID'
+                type='text' value={searchKey} placeholder='Search college by name or ID'
                 onChange={handleSearchKey} onKeyPress={handleSearchKeyEnter}
               />
               <button className='waves-effect waves-light btn'

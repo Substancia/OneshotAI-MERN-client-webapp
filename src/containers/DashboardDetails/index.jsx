@@ -25,7 +25,7 @@ const labelDictionary = {
 const DashboardDetails = props => {
   return (
     <div className='Dashboard-Students'>
-      <h5>About College</h5>
+      <h5>About { 'student' in props.recordType ? 'Student' : 'College' }</h5>
       {
         // iterating through props.record object (contains clicked college/student details)
         Object.keys(props.record).map((info, index) =>
