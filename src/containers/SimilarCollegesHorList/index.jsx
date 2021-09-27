@@ -46,8 +46,11 @@ const SimilarCollegesHorList = props => {
   }
 
   return (
-    <div className='SimilarCollegesHorList'>
-      {similarCards(similar)}     {/* similar colleges list passed to iterating function */}
+    <div className='SimilarCollegesWrapper card'>
+      <h5>Colleges similar to {props.collegeName.college.name}:-</h5>
+      <div className='SimilarCollegesHorList'>
+        {similarCards(similar)}     {/* similar colleges list passed to iterating function */}
+      </div>
     </div>
   );
 }

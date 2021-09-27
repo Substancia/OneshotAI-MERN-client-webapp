@@ -54,7 +54,7 @@ const App = () => {
   return (
     <div className="App">
       {
-        isLoading ? <Preloader /> : null
+        isLoading ? <Preloader fullscreen /> : null
       }
       <header className="App-header">
         {/* Navbar element, contains search field and necessary buttons in different stages */}

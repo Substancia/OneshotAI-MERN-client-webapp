@@ -1,9 +1,9 @@
 import React from "react";
 import './index.scss';
 
-const Preloader = () =>
-  <div className='preloader-container'>
-    <div className='preloader-bg' />
+const Preloader = props =>
+  <div className={`preloader-container ${props.fullscreen ? 'fullscreen' : null}`}>
+    {props.fullscreen ? <div className='preloader-bg' /> : null}
     <div className='preloader-wrapper big active'>
       <div className='spinner-layer spinner-blue-only'>
         <div className='circle-clipper left'>
