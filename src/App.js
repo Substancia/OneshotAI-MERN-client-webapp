@@ -51,6 +51,8 @@ const App = () => {
     fetchData();
   }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query
 
+  console.log(`Debug: ${ADDRESS}:${PORT}/record`);
+  
   return (
     <div className="App">
       {
