@@ -2,6 +2,7 @@
 App structure: Navbar, a dashboard (to show charts or details),
 a list display (recycled to print any given set of records), a horizontal list display
 of cards (to display similar colleges only when drilled down to a college).
+Styling: uses MaterializeCSS classes and components.
 */
 
 import React, { useState, useEffect } from 'react';
@@ -21,10 +22,10 @@ const App = () => {
   const [selectedRecord, setSelectedRecord] = useState({}); // for current selected record
   const [records, setRecords] = useState([]);               // for all records returned by server
   const [collegeCount, setCollegeCount] = useState(0);      // for total number of colleges in DB
-
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);           // loading state for preloader
   
   useEffect(() => {
+    // started loading data from server
     setLoading(true);
     const fetchData = async () => {
       // to collect records from server based on query passed
@@ -46,8 +47,11 @@ const App = () => {
         await axios.post(`${ADDRESS}:${PORT}/record/details`, obj)
           .then(res => setSelectedRecord(res.data));
       }
+
+      // finished loading data from server
       setLoading(false);
     }
+
     fetchData();
   }, [selectedRecordQuery]);    // refresh when a new query is assigned to current query
 

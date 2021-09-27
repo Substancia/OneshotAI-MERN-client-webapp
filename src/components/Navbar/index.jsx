@@ -47,7 +47,7 @@ const Navbar = props => {
         <div className='SearchGroup right'>
           <form onSubmit={e => e.preventDefault()}>   {/* to prevent form from redirecting */}
             <div className='input-field'>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
               <input
                 type='text' value={searchKey} placeholder='Search by name or ID'
                 onChange={handleSearchKey} onKeyPress={handleSearchKeyEnter}
@@ -56,7 +56,7 @@ const Navbar = props => {
                 onClick={handleSearchSubmit}
                 disabled={props.isLoading ? true : false}
               >
-                <i class="material-icons right">send</i>
+                <i className="material-icons right">send</i>
               </button>
             </div>
           </form>

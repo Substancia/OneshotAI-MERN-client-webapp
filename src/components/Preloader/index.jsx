@@ -1,3 +1,8 @@
+/*
+Simple circle preloader component for disabling screens during server communication.
+MaterializeCSS component.
+*/
+
 import React from "react";
 import './index.scss';
 
